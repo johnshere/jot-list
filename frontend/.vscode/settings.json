@@ -1,0 +1,10 @@
+{
+    "files.eol": "\n",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        ".gitignore": ".*",
+        "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml, package-lock.json, npm-run.log",
+        "vite.config.ts": "tailwind.config.*, tsconfig.*, postcss.config.*, eslint.config.*, vitest.config.*, ytt.config.*"
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}

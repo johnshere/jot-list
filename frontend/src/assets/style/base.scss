@@ -1,0 +1,28 @@
+// transition左右切换动画
+.slide-left-enter-active,
+.slide-right-enter-active {
+    transition: all 0.3s ease-out;
+}
+.slide-left-leave-active,
+.slide-right-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-left-enter-from,
+.slide-left-leave-to,
+.slide-right-enter-from,
+.slide-right-leave-to {
+    opacity: 0;
+}
+.slide-left-enter-from,
+.slide-right-leave-to {
+    transform: translateX(50px);
+}
+.slide-left-leave-to,
+.slide-right-enter-from {
+    transform: translateX(-50px);
+}
+
+//
+.eu-date-editor.eu-input {
+    --eu-date-editor-width: 100%;
+}
