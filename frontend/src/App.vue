@@ -1,5 +1,4 @@
 <template>
-        <RouterView :class="theme" />
+    <RouterView />
 </template>
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>

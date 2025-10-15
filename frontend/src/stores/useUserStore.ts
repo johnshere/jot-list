@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getToken } from '@/api/ajax/common'
 
-
 export const useUserStore = defineStore('user', () => {
     const userInfo = ref({
         userId: '',
@@ -25,8 +24,7 @@ export const useUserStore = defineStore('user', () => {
         }
     }
     const clearAuthorization = () => (Authorization.value = '')
-    const fetchUserInfo = async () => {
-    }
+    const fetchUserInfo = async () => {}
     return {
         userInfo,
         Authorization,

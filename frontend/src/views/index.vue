@@ -1,6 +1,6 @@
 <template>
-    <div :class="bem.b('wrap')">
-        <router-view v-slot="{ Component }" :class="bem.b('content')">
+    <div class="views-wrap">
+        <router-view v-slot="{ Component }" class="views-content">
             <keep-alive>
                 <component :is="Component" />
             </keep-alive>
@@ -13,23 +13,12 @@ export default {
     title: import.meta.env.VITE_SYSTEM_NAME
 }
 </script>
-<script lang="ts" setup>
-import { useBEM } from 'ui-base'
-import { useRoute } from 'vue-router'
-
-const bem = useBEM('root-view')
-
-const route = useRoute()
-const title = computed(() => route.meta.title)
-</script>
+<script lang="ts" setup></script>
 <style lang="scss" scoped>
-@use 'ui-base/src/style/mixins' as *;
-
-@include namespace(root-view);
-@include b(wrap) {
+.views-wrap {
     height: 100%;
 }
-@include b(content) {
+.views-content {
     padding: 20px 18px;
 }
 </style>

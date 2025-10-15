@@ -11,7 +11,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "predev": "pnpm postinstall",
-    "prebuild": "pnpm i",
+    "prebuild": "echo 'Dependencies should be installed separately'",
     "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",
     "build-only": "vite build",
@@ -30,10 +30,7 @@
     "@babel/eslint-parser": "^7.28.0",
     "@element-plus/icons-vue": "^2.3.1",
     "@eslint/eslintrc": "^3.3.1",
-    "@iframe-resizer/vue": "^5.5.3",
     "axios": "^1.11.0",
-    "file-saver": "^2.0.5",
-    "flexable": "^1.0.30",
     "lodash-es": "^4.17.21",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
@@ -50,7 +47,6 @@
     "@release-it/conventional-changelog": "^7.0.0",
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node20": "^20.1.6",
-    "@types/file-saver": "^2.0.7",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^21.1.1",
     "@types/lodash-es": "^4.17.12",
@@ -96,7 +92,7 @@
     "vite-plugin-vue-devtools": "^8.0.0",
     "vitest": "^3.2.4",
     "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^3.0.5",
+    "vue-tsc": "^3.0.5"
   },
   "commitlint": {
     "extends": [
@@ -105,7 +101,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "npm run lint"
+      "pnpm lint"
     ]
   },
   "config": {

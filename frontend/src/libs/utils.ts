@@ -1,6 +1,3 @@
-import { isHbky } from 'runtime-origin'
-import { PREVIEW_FILE_TYPES } from '@/api/consts/Usual'
-
 /**
  * @desc 动态加载远程的js
  * @param {*} src js链接

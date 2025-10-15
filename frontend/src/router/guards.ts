@@ -1,4 +1,4 @@
-import { getBaseAndPrefix, nprogress } from '@/libs'
+import { nprogress } from '@/libs/index'
 import type { Router } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { isRouteOrMenu } from '@/libs/permission'
@@ -29,7 +29,7 @@ export const useGuards = (router: Router & { previous?: string }) => {
             if (isExists) {
                 const isAllowed = await isRouteOrMenu(to.path)
                 if (!isAllowed) {
-                    return next(`${getBaseAndPrefix().prefix}/forbidden`)
+                    return next(`/forbidden`)
                 }
             }
         }
