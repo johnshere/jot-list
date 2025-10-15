@@ -114,7 +114,7 @@ export default () => {
                         // 打包依赖
                         if (id.includes('node_modules')) {
                             // 可能频繁更新
-                            let ks =
+                            const ks =
                                 'lodash,jspdf,jszip,exceljs,moment,html2canvas,vconsole,pdfjs-dist,echarts,tinymce'
                             for (const k of ks.split(',')) {
                                 if (id.includes(k)) return k

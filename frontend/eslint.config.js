@@ -69,7 +69,7 @@ export default defineConfigWithVueTs([
             ],
             '@typescript-eslint/no-empty-object-type': 'off',
             'prettier/prettier': 'error',
-            'vue/valid-attribute-name': 'off',
+            'vue/valid-attribute-name': 'off'
         }
     }
 ])

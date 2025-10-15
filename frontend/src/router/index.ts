@@ -56,7 +56,6 @@ const inst = createRouter({
     routes
 })
 
-
 useGuards(inst)
 
 export const router = inst
