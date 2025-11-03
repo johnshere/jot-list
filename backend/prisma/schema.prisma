@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  userName     String
+  phone        String    @unique
+  password     String    // 存储MD5摘要
+  email        String?
+  wechat       String?
+  qq           String?
+  avatar       String?
+  status       String    @default("ACTIVE")
+  isDeleted    Boolean   @default(false)
+  lastLoginAt  DateTime?
+  createTime   DateTime  @default(now())
+  updateTime   DateTime  @updatedAt
+}
