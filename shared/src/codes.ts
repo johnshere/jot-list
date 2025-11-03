@@ -1,0 +1,17 @@
+export enum HttpStatus {
+  OK = 200,
+  CREATED = 201,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  CONFLICT = 409,
+  UNPROCESSABLE_ENTITY = 422,
+  INTERNAL_SERVER_ERROR = 500,
+}
+
+// 统一的业务级错误/提示代码（字符串更便于跨端识别）
+export enum BizCode {
+  LOGIN_REQUIRED = 'LOGIN_REQUIRED',
+  INVALID_CREDENTIALS = 'INVALID_CREDENTIALS',
+}

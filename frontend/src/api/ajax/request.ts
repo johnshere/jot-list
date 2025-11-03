@@ -4,6 +4,7 @@ import { alertError, toLogin } from '@/libs'
 import { useUserStore } from '@/stores'
 import axios from 'axios'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios'
+import { HttpStatus } from '@jot-list/shared'
 
 interface AbortInstance {
     // url: string
@@ -143,15 +144,15 @@ export class Request {
                     console.log('Request canceled', res)
                     return Promise.reject(res)
                 }
+                // 未登录
+                if (res.status === HttpStatus.UNAUTHORIZED) {
+                    toLogin()
+                    return Promise.reject(res)
+                }
                 if (res.status >= 200 && res.status < 300) {
                     if (isFile(res)) {
                         fileReponseDown(res)
                         return Promise.resolve(res)
-                    }
-                    // 未登录
-                    if (res.data.code === 'LOGIN_REQUIRED') {
-                        toLogin()
-                        return Promise.reject(res)
                     }
                     // 2xx 作为成功，直接返回业务数据
                     return Promise.resolve(res.data as unknown as AxiosResponse)

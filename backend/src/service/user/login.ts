@@ -1,4 +1,6 @@
 import type { FastifyInstance } from 'fastify'
+import { BizCode, HttpStatus } from '@jot-list/shared'
+import type { LoginRequest, LoginOk, LoginCreated, ApiError } from '@jot-list/shared'
 import { PasswordSalt } from '../../config/constants'
 import { hashSecret, md5Hex } from '../../utils/md5'
 import { PrismaClient } from '../../generated/prisma/client'
@@ -22,7 +24,7 @@ export const loginService = (instance: FastifyInstance) => {
             }
         },
         async (req, reply) => {
-            const { phone, password } = req.body as { phone: string; password: string }
+            const { phone, password } = req.body as LoginRequest
 
             // 统一使用常量盐
             const secret = hashSecret(password, PasswordSalt)
@@ -43,19 +45,23 @@ export const loginService = (instance: FastifyInstance) => {
                 })
                 // 标准 HTTP：新建返回 201，响应体为业务数据
                 return reply
-                    .code(201)
-                    .send({ created: true, userId: user.id, userName, phone, initialPassword })
+                    .code(HttpStatus.CREATED)
+                    .send({ created: true, userId: user.id, userName, phone, initialPassword } satisfies LoginCreated)
             }
 
             // 校验密码
             if (user.password !== secret.digest) {
                 // 标准 HTTP：认证失败返回 401
-                return reply.code(401).send({ error: 'INVALID_CREDENTIALS', message: '手机号或密码错误' })
+                return reply
+                    .code(HttpStatus.UNAUTHORIZED)
+                    .send({ error: BizCode.INVALID_CREDENTIALS, message: '手机号或密码错误' } satisfies ApiError)
             }
 
             await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } })
             // 标准 HTTP：成功返回 200，响应体为业务数据
-            return reply.code(200).send({ userId: user.id, userName: user.userName, phone: user.phone })
+            return reply
+                .code(HttpStatus.OK)
+                .send({ userId: user.id, userName: user.userName, phone: user.phone } satisfies LoginOk)
         }
     )
 }

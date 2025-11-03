@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
 import { ApiPrefix, NoAuthPaths } from '../config/constants'
+import { BizCode, HttpStatus } from '@jot-list/shared'
 
 // 登录拦截器：放行 OPTIONS 与白名单路由，其余要求 Bearer Token
 const authInterceptor: FastifyPluginAsync = async (instance: FastifyInstance) => {
@@ -15,7 +16,7 @@ const authInterceptor: FastifyPluginAsync = async (instance: FastifyInstance) =>
         const auth = req.headers.authorization
         const hasBearer = typeof auth === 'string' && auth.startsWith('Bearer ') && auth.slice(7).trim().length > 0
         if (!hasBearer) {
-            reply.send({ code: 'LOGIN_REQUIRED', message: 'Unauthorized', error: 'LOGIN_REQUIRED' })
+            reply.code(HttpStatus.UNAUTHORIZED).send({ error: BizCode.LOGIN_REQUIRED, message: 'Unauthorized' })
             return
         }
     })
