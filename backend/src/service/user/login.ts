@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { BizCode, HttpStatus } from '@jot-list/shared'
-import type { LoginRequest, LoginOk, LoginCreated, ApiError } from '@jot-list/shared'
+import type { LoginRequest, LoginOk, LoginCreated, ErrorResult } from '@jot-list/shared'
 import { PasswordSalt } from '../../config/constants'
 import { hashSecret, md5Hex } from '../../utils/md5'
 import { PrismaClient } from '../../generated/prisma/client'
@@ -54,7 +54,7 @@ export const loginService = (instance: FastifyInstance) => {
                 // 标准 HTTP：认证失败返回 401
                 return reply
                     .code(HttpStatus.UNAUTHORIZED)
-                    .send({ error: BizCode.INVALID_CREDENTIALS, message: '手机号或密码错误' } satisfies ApiError)
+                    .send({ code: BizCode.INVALID_CREDENTIALS, message: '手机号或密码错误' } satisfies ErrorResult)
             }
 
             await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } })

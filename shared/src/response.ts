@@ -16,14 +16,15 @@ export enum BizCode {
     INVALID_CREDENTIALS = 'INVALID_CREDENTIALS'
 }
 
-// 标准错误响应体（非2xx）
-export interface ApiError {
-    error: BizCode | string
-    message: string
+export type SuccessResult<D> = {
+    success: true
+    failed: false
+    data: D
 }
-
-export type SuccessResult<D> = D
+// 标准错误响应体（非2xx）
 export type ErrorResult = {
+    success: false
+    failed: true
     code: BizCode
     message: string
 }

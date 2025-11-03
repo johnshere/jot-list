@@ -11,8 +11,7 @@ export const useUserStore = defineStore('user', () => {
     const Authorization = ref('')
     const getAuthorization = async () => {
         const res = await getToken()
-        // 兼容标准 HTTP 响应：可能直接返回字符串或对象
-        if (res.data) {
+        if (res.success && res.data) {
             Authorization.value = res.data
         } else {
             console.log('获取的token数据为空')
