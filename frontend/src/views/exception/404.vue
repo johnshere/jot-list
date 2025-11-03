@@ -29,32 +29,33 @@ const goBack = () => router.back()
 }
 
 .code {
-    font-size: 96px;
+    font-size: 90px;
     font-weight: 700;
     line-height: 1;
     color: #3c4858;
 }
 
 .message {
-    margin-top: 12px;
+    margin-top: 16px;
     font-size: 18px;
     color: #606266;
 }
 
 .actions {
-    margin-top: 24px;
+    margin-top: 26px;
     display: flex;
     gap: 12px;
     justify-content: center;
 }
 
 .btn {
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 6px;
     border: 1px solid #dcdfe6;
     background: #fff;
     color: #606266;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .btn.primary {
@@ -64,6 +65,6 @@ const goBack = () => router.back()
 }
 
 .btn:hover {
-    filter: brightness(0.98);
+    filter: brightness(0.95);
 }
 </style>
