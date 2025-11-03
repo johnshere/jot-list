@@ -1,9 +1,8 @@
 import Fastify, { type FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
-import { authInterceptor } from './plugins/interceptors'
-import userRoutes from './routes/user'
-import itemsRoutes from './routes/items'
 import { ApiPrefix } from './config/constants'
+import { authInterceptor } from './plugins/interceptors'
+import { userService } from './service/user'
 
 export async function buildApp(): Promise<FastifyInstance> {
     const app = Fastify({ logger: true })
@@ -14,8 +13,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     await app.register(
         async instance => {
             await instance.register(authInterceptor)
-            await instance.register(userRoutes)
-            await instance.register(itemsRoutes)
+            await instance.register(userService)
         },
         { prefix: ApiPrefix }
     )
