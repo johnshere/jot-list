@@ -4,7 +4,7 @@ import { alertError, toLogin } from '@/libs'
 import { useUserStore } from '@/stores'
 import axios from 'axios'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios'
-import { HttpStatus } from '@jot-list/shared'
+import { HttpStatus, type ErrorResult, type RequestResult } from '@jot-list/shared'
 
 interface AbortInstance {
     // url: string
@@ -159,7 +159,8 @@ export class Request {
                 }
                 // 非 2xx：走错误分支
                 if (res.config.showErrorMessage !== false) {
-                    alertError(res.data.message || res.statusText || `接口调用失败`)
+                    const data = res.data as ErrorResult
+                    alertError(data.message || res.statusText || `接口调用失败`)
                 }
                 console.error(res)
                 return Promise.reject(res)
@@ -174,7 +175,7 @@ export class Request {
                 }
                 if (error.config?.showErrorMessage !== false) {
                     if (!axios.isCancel(error)) {
-                        const data = error.response?.data as RequestResult<Obj>
+                        const data = error.response?.data as ErrorResult
                         const msg = data?.message || error.response?.statusText || `接口调用失败`
                         alertError(msg)
                     }
