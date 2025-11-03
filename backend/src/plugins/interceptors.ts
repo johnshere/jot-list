@@ -15,7 +15,7 @@ const authInterceptor: FastifyPluginAsync = async (instance: FastifyInstance) =>
         const auth = req.headers.authorization
         const hasBearer = typeof auth === 'string' && auth.startsWith('Bearer ') && auth.slice(7).trim().length > 0
         if (!hasBearer) {
-            reply.code(401).send({ code: 401, message: 'Unauthorized', error: 'LOGIN_REQUIRED' })
+            reply.send({ code: 'LOGIN_REQUIRED', message: 'Unauthorized', error: 'LOGIN_REQUIRED' })
             return
         }
     })

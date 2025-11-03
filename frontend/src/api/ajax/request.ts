@@ -143,33 +143,39 @@ export class Request {
                     console.log('Request canceled', res)
                     return Promise.reject(res)
                 }
-                if (isFile(res)) {
-                    fileReponseDown(res)
-                    return Promise.resolve(res)
-                }
-                if (res.status === 200) {
+                if (res.status >= 200 && res.status < 300) {
+                    if (isFile(res)) {
+                        fileReponseDown(res)
+                        return Promise.resolve(res)
+                    }
                     // 未登录
-                    if (res.data.code === 401 || res.data.code === '1002') {
+                    if (res.data.code === 'LOGIN_REQUIRED') {
                         toLogin()
                         return Promise.reject(res)
                     }
-                    if (!res.data.success && res.config.showErrorMessage !== false) {
-                        alertError(res.data?.message || res.data?.msg || `接口响应为失败状态`)
-                    }
+                    // 2xx 作为成功，直接返回业务数据
                     return Promise.resolve(res.data as unknown as AxiosResponse)
-                } else {
-                    if (res.config.showErrorMessage !== false) {
-                        alertError(res.data?.message || res.data?.msg || `接口调用失败`)
-                    }
-                    console.error(res)
-                    return Promise.reject(res)
                 }
+                // 非 2xx：走错误分支
+                if (res.config.showErrorMessage !== false) {
+                    alertError(res.data.message || res.statusText || `接口调用失败`)
+                }
+                console.error(res)
+                return Promise.reject(res)
             },
             (error: AxiosError) => {
                 console.log(error)
+                const status = error.response?.status
+                if (status === 401) {
+                    // 未登录或凭证失效：统一跳转登录
+                    toLogin()
+                    return Promise.reject(error)
+                }
                 if (error.config?.showErrorMessage !== false) {
                     if (!axios.isCancel(error)) {
-                        alertError(`接口调用失败`)
+                        const data = error.response?.data as RequestResult<Obj>
+                        const msg = data?.message || error.response?.statusText || `接口调用失败`
+                        alertError(msg)
                     }
                 }
                 throw error
@@ -185,11 +191,6 @@ export class Request {
         return this.request<P>({ ...options, url, data, method: 'POST' })
     }
 }
-
-/**
- * 检查请求是否成功，大部分不需要判定code，但是工作流相关需要判定code=‘1’
- */
-export const Success = <D>(res: RequestResult<D>): res is SuccessResult<D> => res.success && res.code == '1'
 
 /**
  * 基础请求，扩展的话在下方新增

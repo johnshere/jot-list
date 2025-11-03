@@ -41,25 +41,21 @@ export const loginService = (instance: FastifyInstance) => {
                         password: digest
                     }
                 })
-                // 返回初始密码，便于前端提示用户
-                return reply.send({
-                    success: true,
-                    code: '1',
-                    data: { created: true, userId: user.id, userName, phone, initialPassword }
-                })
+                // 标准 HTTP：新建返回 201，响应体为业务数据
+                return reply
+                    .code(201)
+                    .send({ created: true, userId: user.id, userName, phone, initialPassword })
             }
 
             // 校验密码
             if (user.password !== secret.digest) {
-                return reply.code(401).send({ success: false, code: '401', message: '手机号或密码错误' })
+                // 标准 HTTP：认证失败返回 401
+                return reply.code(401).send({ error: 'INVALID_CREDENTIALS', message: '手机号或密码错误' })
             }
 
             await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } })
-            return reply.send({
-                success: true,
-                code: '1',
-                data: { userId: user.id, userName: user.userName, phone: user.phone }
-            })
+            // 标准 HTTP：成功返回 200，响应体为业务数据
+            return reply.code(200).send({ userId: user.id, userName: user.userName, phone: user.phone })
         }
     )
 }
