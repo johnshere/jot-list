@@ -27,3 +27,4 @@ coverage
 pnpm-lock.yaml
 package-lock.json
 public/pdf.worker.min.js
+backend/dist

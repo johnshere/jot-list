@@ -1,0 +1,21 @@
+{
+  "name": "jot-back",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "fastify": "^4.27.0",
+    "@fastify/cors": "^10.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "tslib": "^2.6.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.9.2"
+  }
+}

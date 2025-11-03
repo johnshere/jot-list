@@ -1,5 +1,5 @@
 {
-  "name": "jot-front",
+  "name": "front",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,6 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky install",
     "predev": "pnpm postinstall",
     "prebuild": "echo 'Dependencies should be installed separately'",
     "dev": "vite",
