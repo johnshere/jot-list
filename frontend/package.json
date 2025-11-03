@@ -10,6 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "predev": "pnpm postinstall",
+    "postinstall": "echo Skipping postinstall",
     "prebuild": "echo 'Dependencies should be installed separately'",
     "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",

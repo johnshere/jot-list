@@ -9,7 +9,8 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/:pathMatch(.*)',
         name: Symbol('abnorm'),
-        component: () => import('@/views/abnorm/indx.vue')
+        meta: { title: '404 - 页面不存在' },
+        component: () => import('@/views/exception/404.vue')
     }
 ]
 
