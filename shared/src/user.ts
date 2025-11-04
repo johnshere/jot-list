@@ -10,11 +10,3 @@ export interface LoginOk {
     userName: string
     phone: string
 }
-
-export interface LoginCreated {
-    created: true
-    userId: number
-    userName: string
-    phone: string
-    initialPassword: string
-}

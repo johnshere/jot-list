@@ -25,7 +25,7 @@ export type SuccessResult<D> = {
 export type ErrorResult = {
     success: false
     failed: true
-    code: BizCode
+    code?: BizCode
     message: string
 }
 /**

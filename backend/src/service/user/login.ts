@@ -1,10 +1,11 @@
 import type { FastifyInstance } from 'fastify'
 import { BizCode, HttpStatus } from '@jot-list/shared'
-import type { LoginRequest, LoginOk, LoginCreated, ErrorResult } from '@jot-list/shared'
+import type { LoginRequest, LoginOk } from '@jot-list/shared'
 import { PasswordSalt } from '../../config/constants'
 import { hashSecret, md5Hex } from '../../utils/md5'
 import { PrismaClient } from '../../generated/prisma/client'
 import { randomDigits, randomString } from '../../utils/random'
+import { error, success } from '../reply'
 
 const prisma = new PrismaClient()
 
@@ -44,24 +45,19 @@ export const loginService = (instance: FastifyInstance) => {
                     }
                 })
                 // 标准 HTTP：新建返回 201，响应体为业务数据
-                return reply
-                    .code(HttpStatus.CREATED)
-                    .send({ created: true, userId: user.id, userName, phone, initialPassword } satisfies LoginCreated)
+                const newUser = { ...user, password: initialPassword }
+                return success(reply, newUser, HttpStatus.CREATED)
             }
 
             // 校验密码
             if (user.password !== secret.digest) {
                 // 标准 HTTP：认证失败返回 401
-                return reply
-                    .code(HttpStatus.UNAUTHORIZED)
-                    .send({ code: BizCode.INVALID_CREDENTIALS, message: '手机号或密码错误' } satisfies ErrorResult)
+                return error(reply, '手机号或密码错误', HttpStatus.UNAUTHORIZED)
             }
 
             await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } })
             // 标准 HTTP：成功返回 200，响应体为业务数据
-            return reply
-                .code(HttpStatus.OK)
-                .send({ userId: user.id, userName: user.userName, phone: user.phone } satisfies LoginOk)
+            return success(reply, { userId: user.id, userName: user.userName, phone: user.phone } satisfies LoginOk)
         }
     )
 }
