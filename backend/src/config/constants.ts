@@ -1,6 +1,5 @@
 // 全局常量配置（使用帕斯卡命名法）
 
-export const ApiPrefix = '/api'
 export const DefaultPort = 3000
 export const HostBind = '0.0.0.0'
 

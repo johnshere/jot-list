@@ -4,7 +4,7 @@ import { alertError, toLogin } from '@/libs'
 import { useUserStore } from '@/stores'
 import axios from 'axios'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CreateAxiosDefaults } from 'axios'
-import { HttpStatus, type ErrorResult, type RequestResult } from '@jot-list/shared'
+import { ApiPrefix, HttpStatus, type ErrorResult, type RequestResult } from '@jot-list/shared'
 
 interface AbortInstance {
     // url: string
@@ -197,4 +197,4 @@ export class Request {
 /**
  * 基础请求，扩展的话在下方新增
  */
-export const request = new Request({ baseURL: '/api' })
+export const request = new Request({ baseURL: ApiPrefix })

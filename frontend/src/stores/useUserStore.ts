@@ -8,22 +8,18 @@ export const useUserStore = defineStore('user', () => {
         userName: '',
         phone: ''
     })
-    const Authorization = ref('')
-    const getAuthorization = async () => {
-        const res = await getToken()
-        if (res.success && res.data) {
-            Authorization.value = res.data
-        } else {
-            console.log('获取的token数据为空')
-        }
-    }
+    const Authorization = ref(localStorage.getItem('Authorization') || '')
     const clearAuthorization = () => (Authorization.value = '')
+    const setAuthorization = (token: string) => {
+        Authorization.value = token
+        localStorage.setItem('Authorization', token)
+    }
     const fetchUserInfo = async () => {}
     return {
         userInfo,
         Authorization,
-        getAuthorization,
         fetchUserInfo,
-        clearAuthorization
+        clearAuthorization,
+        setAuthorization
     }
 })

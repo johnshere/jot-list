@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyPluginAsync } from 'fastify'
-import { ApiPrefix, NoAuthPaths } from '../config/constants'
-import { BizCode, HttpStatus } from '@jot-list/shared'
+import { NoAuthPaths } from '../config/constants'
+import { ApiPrefix, BizCode, HttpStatus } from '@jot-list/shared'
 
 // 登录拦截器：放行 OPTIONS 与白名单路由，其余要求 Bearer Token
 const authInterceptor: FastifyPluginAsync = async (instance: FastifyInstance) => {

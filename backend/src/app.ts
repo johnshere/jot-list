@@ -1,8 +1,8 @@
 import Fastify, { type FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
-import { ApiPrefix } from './config/constants'
 import { authInterceptor } from './plugins/interceptors'
 import { userService } from './service/user'
+import { ApiPrefix } from '@jot-list/shared'
 
 export async function buildApp(): Promise<FastifyInstance> {
     const app = Fastify({ logger: true })

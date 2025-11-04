@@ -2,29 +2,17 @@ import { nprogress } from '@/libs/index'
 import type { Router } from 'vue-router'
 import { useUserStore } from '@/stores'
 import { isRouteOrMenu } from '@/libs/permission'
-const whiteList = ['/forbidden']
+const whiteList = ['/forbidden', '/login']
 export const useGuards = (router: Router & { previous?: string }) => {
     //导航守卫
     router.beforeEach(async (to, from, next) => {
         const userStore = useUserStore()
-        // console.log(
-        //     to.path,
-        //     whiteList.some(item => to.path.includes(item)),
-        //     userStore.Authorization
-        // )
-        if (to.path.includes('undefined') || to.path === '/') {
-            if (router.previous) return next(router.previous)
-        }
-        if (to.path !== from.path) router.previous = from.fullPath
         if (!whiteList.some(item => to.path.includes(item))) {
             if (!userStore.Authorization) {
-                try {
-                    await userStore.getAuthorization()
-                    await userStore.fetchUserInfo()
-                } catch (error) {
-                    console.log(error)
-                }
+                next({ path: '/login' })
+                return
             }
+            await userStore.fetchUserInfo()
             const isExists = router.getRoutes().some(r => r.path === to.path)
             if (isExists) {
                 const isAllowed = await isRouteOrMenu(to.path)
