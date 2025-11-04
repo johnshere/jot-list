@@ -25,6 +25,7 @@ import { useRouter } from 'vue-router'
 import { PASSWORD_REGEX, type LoginRes } from '@jot-list/shared'
 import { useUserStore } from '@/stores/useUserStore'
 import { request } from '@/api/ajax/request'
+import type { AxiosResponse } from 'axios'
 
 const phone = ref('')
 const password = ref('')
@@ -63,7 +64,8 @@ async function onSubmit() {
             loginError.value = res.message || '登录失败'
         }
     } catch (e) {
-        loginError.value = e?.response?.data?.message || '网络错误'
+        const er = e as { response: AxiosResponse<{ message: string }> }
+        loginError.value = er?.response?.data?.message || '网络错误'
     } finally {
         loading.value = false
     }
