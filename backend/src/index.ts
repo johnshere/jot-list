@@ -1,3 +1,4 @@
+import './setup/env'
 import { buildApp } from './app'
 import type { FastifyInstance } from 'fastify'
 import { DefaultPort, HostBind } from './config/constants'

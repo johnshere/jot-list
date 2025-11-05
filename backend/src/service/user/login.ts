@@ -41,12 +41,11 @@ export const loginService = (instance: FastifyInstance) => {
                 // 自动创建用户：6位随机数密码 + 6位随机字符串用户名
                 const initialPassword = randomDigits(6)
                 const userName = randomString(6)
-                const digest = md5Hex(`${PasswordSalt}${initialPassword}`)
                 user = await prisma.user.create({
                     data: {
                         userName,
                         phone,
-                        password: digest
+                        password: secret.digest
                     }
                 })
                 // 登录成功和新建用户时都生成并返回 authorization 字段。
@@ -58,7 +57,7 @@ export const loginService = (instance: FastifyInstance) => {
             // 校验密码
             if (user.password !== secret.digest) {
                 // 标准 HTTP：认证失败返回 401
-                return error(reply, '手机号或密码错误', HttpStatus.UNAUTHORIZED)
+                return error(reply, '手机号或密码错误')
             }
 
             // 登录成功生成 Authorization

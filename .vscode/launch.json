@@ -1,0 +1,39 @@
+{
+  // 使用集成终端启动，避免 JavaScript Debug Terminal 编码问题
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Backend: Debug (Integrated Terminal UTF-8)",
+      "runtimeExecutable": "pnpm",
+      "args": [
+        "-C",
+        "backend",
+        "run",
+        // Windows 下使用 UTF-8 包装脚本；在非 Windows 也可直接切换到下面那个配置
+        "dev"
+      ],
+      "console": "integratedTerminal",
+      // 让 Node/一些工具尽量走 UTF-8（部分工具会参考这些变量）
+      "env": {
+        "LANG": "zh_CN.UTF-8",
+        "LC_ALL": "zh_CN.UTF-8"
+      }
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "Backend: Debug (Integrated Terminal)",
+      "runtimeExecutable": "pnpm",
+      "args": [
+        "-C",
+        "backend",
+        "dev"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}
+
+

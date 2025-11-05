@@ -26,6 +26,7 @@ import { PASSWORD_REGEX, type LoginRes } from '@jot-list/shared'
 import { useUserStore } from '@/stores/useUserStore'
 import { request } from '@/api/ajax/request'
 import type { AxiosResponse } from 'axios'
+import { alertSuccess } from '@/libs'
 
 const phone = ref('')
 const password = ref('')
@@ -59,13 +60,13 @@ async function onSubmit() {
             if (res.data?.authorization) {
                 userStore.setAuthorization(res.data.authorization)
             }
-            router.back()
-        } else {
-            loginError.value = res.message || '登录失败'
+            alertSuccess('登录成功')
+            if (router.currentRoute.value.query.redirect) {
+                router.replace(router.currentRoute.value.query.redirect as string)
+            } else {
+                router.replace('/')
+            }
         }
-    } catch (e) {
-        const er = e as { response: AxiosResponse<{ message: string }> }
-        loginError.value = er?.response?.data?.message || '网络错误'
     } finally {
         loading.value = false
     }
