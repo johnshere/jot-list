@@ -1,10 +1,10 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getToken } from '@/api/ajax/common'
+import { getUserInfo } from '@/api/ajax/common'
 
 export const useUserStore = defineStore('user', () => {
     const userInfo = ref({
-        userId: '',
+        id: '',
         userName: '',
         phone: ''
     })
@@ -14,7 +14,18 @@ export const useUserStore = defineStore('user', () => {
         Authorization.value = token
         localStorage.setItem('Authorization', token)
     }
-    const fetchUserInfo = async () => {}
+    const fetchUserInfo = async () => {
+        const res = await getUserInfo()
+        if (res.success) {
+            const data = res.data
+            userInfo.value = {
+                id: String(data.id ?? ''),
+                userName: data.userName ?? '',
+                phone: data.phone ?? ''
+            }
+        }
+        return res
+    }
     return {
         userInfo,
         Authorization,

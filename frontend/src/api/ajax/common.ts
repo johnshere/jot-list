@@ -1,3 +1,4 @@
+import type { User } from '@jot-list/shared'
 import { request } from './request'
 
 export const getToken = () => {
@@ -9,5 +10,5 @@ export const getToken = () => {
  * @retruns
  */
 export const getUserInfo = () => {
-    return request.get<UserInfo>('/user/get', {})
+    return request.get<User>('/user/get', {})
 }

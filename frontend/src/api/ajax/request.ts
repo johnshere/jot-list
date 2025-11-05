@@ -129,7 +129,7 @@ export class Request {
             // 设置请求头
             if (config && config.headers) {
                 const auth = useUserStore().Authorization
-                if (auth) config.headers.set('Authorization', auth)
+                if (auth) config.headers.set('Authorization', `Bearer ${auth}`)
             }
             return config
         })
@@ -142,11 +142,6 @@ export class Request {
                 if (requestKey) AbortUtil.controllerMap.delete(requestKey)
                 if (axios.isCancel(res)) {
                     console.log('Request canceled', res)
-                    return Promise.reject(res)
-                }
-                // 未登录
-                if (res.status === HttpStatus.UNAUTHORIZED) {
-                    toLogin()
                     return Promise.reject(res)
                 }
                 if (res.status >= 200 && res.status < 300) {

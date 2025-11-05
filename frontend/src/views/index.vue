@@ -1,11 +1,9 @@
 <template>
-    <div class="views-wrap">
-        <router-view v-slot="{ Component }" class="views-content">
-            <keep-alive>
-                <component :is="Component" />
-            </keep-alive>
-        </router-view>
-    </div>
+    <router-view v-slot="{ Component }" class="views-content">
+        <keep-alive>
+            <component :is="Component" />
+        </keep-alive>
+    </router-view>
 </template>
 <script lang="ts">
 export default {
@@ -14,11 +12,4 @@ export default {
 }
 </script>
 <script lang="ts" setup></script>
-<style lang="scss" scoped>
-.views-wrap {
-    height: 100%;
-}
-.views-content {
-    padding: 20px 18px;
-}
-</style>
+<style lang="scss" scoped></style>
