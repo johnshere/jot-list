@@ -6,5 +6,19 @@
         "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml, package-lock.json, npm-run.log",
         "vite.config.ts": "tailwind.config.*, tsconfig.*, postcss.config.*, eslint.config.*, vitest.config.*, ytt.config.*"
     },
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

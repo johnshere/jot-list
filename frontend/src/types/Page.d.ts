@@ -4,6 +4,7 @@ interface View {
         __file: string
         folders: string[]
         path?: string
+        sort?: number
         meta?: Record<string, BaseType>
         children?: RouteRecordRaw[]
     }

@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import { useGuards } from './guards'
-import { name } from '@/../package.json'
 
 const Root = {} as RouteRecordRaw
 const routes: RouteRecordRaw[] = [
@@ -53,7 +52,7 @@ for (const component of components) {
 
 // 创建新的路由实例
 const inst = createRouter({
-    history: createWebHistory(name),
+    history: createWebHistory(),
     routes
 })
 

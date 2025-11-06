@@ -30,7 +30,7 @@ export default () => {
 
     return defineConfig({
         // 设置打包路径
-        base: `/${title}/`,
+        base: `/`,
         // 插件
         plugins: [
             vue(),

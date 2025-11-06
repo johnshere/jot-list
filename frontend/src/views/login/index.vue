@@ -63,6 +63,8 @@ async function onSubmit() {
             alertSuccess('登录成功')
             if (router.currentRoute.value.query.redirect) {
                 router.replace(router.currentRoute.value.query.redirect as string)
+            } else if (window.history.length > 1) {
+                router.back()
             } else {
                 router.replace('/')
             }
