@@ -63,7 +63,7 @@ async function onSubmit() {
             alertSuccess('登录成功')
             if (router.currentRoute.value.query.redirect) {
                 router.replace(router.currentRoute.value.query.redirect as string)
-            } else if (window.history.length > 1) {
+            } else if (window.history.state && window.history.state.back) {
                 router.back()
             } else {
                 router.replace('/')
@@ -86,7 +86,7 @@ async function onSubmit() {
     padding: 32px;
     border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    background: #fff;
+    background: var(--color-surface);
 
     @media screen and (max-width: 1024px) {
         width: 340px;
@@ -110,15 +110,15 @@ async function onSubmit() {
     width: 100%;
     padding: 8px;
     margin-bottom: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid color-mix(in srgb, var(--color-muted) 90%, transparent);
     border-radius: 4px;
 }
 
 .login-form button {
     width: 100%;
     padding: 10px;
-    background: #409eff;
-    color: #fff;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
     border: none;
     border-radius: 4px;
     font-size: 16px;
@@ -127,12 +127,12 @@ async function onSubmit() {
 }
 
 .login-form button:disabled {
-    background: #bcdcff;
+    background: color-mix(in srgb, var(--color-primary) 25%, var(--color-surface));
     cursor: not-allowed;
 }
 
 .error {
-    color: #f56c6c;
+    color: var(--color-error);
     font-size: 13px;
     margin-bottom: 8px;
     display: block;

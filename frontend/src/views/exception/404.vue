@@ -32,13 +32,13 @@ const goBack = () => router.back()
     font-size: 90px;
     font-weight: 700;
     line-height: 1;
-    color: #3c4858;
+    color: var(--color-text);
 }
 
 .message {
     margin-top: 16px;
     font-size: 18px;
-    color: #606266;
+    color: var(--color-secondary);
 }
 
 .actions {
@@ -51,17 +51,17 @@ const goBack = () => router.back()
 .btn {
     padding: 6px 14px;
     border-radius: 6px;
-    border: 1px solid #dcdfe6;
-    background: #fff;
-    color: #606266;
+    border: 1px solid color-mix(in srgb, var(--color-muted) 85%, transparent);
+    background: var(--color-surface);
+    color: var(--color-secondary);
     cursor: pointer;
     font-size: 14px;
 }
 
 .btn.primary {
-    background: #409eff;
-    border-color: #409eff;
-    color: #fff;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
 }
 
 .btn:hover {

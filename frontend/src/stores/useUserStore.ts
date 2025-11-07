@@ -9,11 +9,22 @@ export const useUserStore = defineStore('user', () => {
         phone: ''
     })
     const Authorization = ref(localStorage.getItem('Authorization') || '')
-    const clearAuthorization = () => (Authorization.value = '')
+    const clearAuthorization = () => {
+        Authorization.value = ''
+        localStorage.removeItem('Authorization')
+    }
     const setAuthorization = (token: string) => {
         Authorization.value = token
         localStorage.setItem('Authorization', token)
     }
+    const clearUserInfo = () => {
+        userInfo.value = {
+            id: '',
+            userName: '',
+            phone: ''
+        }
+    }
+
     const fetchUserInfo = async () => {
         const res = await getUserInfo()
         if (res.success) {
@@ -31,6 +42,7 @@ export const useUserStore = defineStore('user', () => {
         Authorization,
         fetchUserInfo,
         clearAuthorization,
-        setAuthorization
+        setAuthorization,
+        clearUserInfo
     }
 })

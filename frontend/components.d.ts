@@ -12,13 +12,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    InputTag: typeof import('./src/components/input-tag/index.vue')['default']
+    Popover: typeof import('./src/components/popover/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    User: typeof import('./src/components/user/index.vue')['default']
+    UserPopover: typeof import('./src/components/user-popover.vue')['default']
   }
 }
 
 // For TSX support
 declare global {
+  const InputTag: typeof import('./src/components/input-tag/index.vue')['default']
+  const Popover: typeof import('./src/components/popover/index.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
+  const User: typeof import('./src/components/user/index.vue')['default']
+  const UserPopover: typeof import('./src/components/user-popover.vue')['default']
 }

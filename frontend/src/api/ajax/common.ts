@@ -12,3 +12,7 @@ export const getToken = () => {
 export const getUserInfo = () => {
     return request.get<User>('/user/get', {})
 }
+
+export const logout = () => {
+    return request.post<boolean>('/user/logout', {})
+}

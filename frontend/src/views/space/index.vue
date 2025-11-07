@@ -6,15 +6,7 @@
                 <span class="system-title">{{ SystemTitle }}</span>
             </div>
             <div class="header-actions">
-                <div class="user-info">
-                    <div class="user-avatar">
-                        {{ userInfo.userName?.[0]?.toUpperCase() || 'U' }}
-                    </div>
-                    <div class="user-details">
-                        <div class="user-name">{{ userInfo.userName || '用户' }}</div>
-                        <div class="user-phone">{{ userInfo.phone || '' }}</div>
-                    </div>
-                </div>
+                <User :user="userInfo" />
             </div>
         </header>
 
@@ -60,13 +52,15 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SystemLogo, SystemTitle } from '@jot-list/shared'
 import { useUserStore } from '@/stores'
+import User from '@/components/user/index.vue'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
 
 const collapsed = ref(false)
-const userInfo = computed(() => userStore.userInfo)
+const { userInfo } = storeToRefs(userStore)
 
 function toggleCollapse() {
     collapsed.value = !collapsed.value
@@ -93,25 +87,22 @@ const menus = computed<MenuItem[]>(() => {
 })
 </script>
 <style lang="scss" scoped>
+@use '@/assets/style/mixins.scss' as *;
+
 $header-height: 64px;
 $sidebar-width: 240px;
 $sidebar-width-collapsed: 64px;
-$primary-color: #409eff;
-$primary-hover: #66b1ff;
-$primary-active: #3a8ee6;
-$text-primary: #303133;
-$text-regular: #606266;
-$text-secondary: #909399;
-$border-color: #e4e7ed;
-$bg-color: #f5f7fa;
-$menu-active-bg: #f7fbff;
 $shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
 $shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
 .space-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+    background: linear-gradient(
+        135deg,
+        var(--color-bg) 0%,
+        color-mix(in srgb, var(--color-bg) 70%, var(--color-surface)) 100%
+    );
 }
 
 .space-header {
@@ -123,10 +114,9 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--color-surface);
     backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid rgba(228, 231, 237, 0.8);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-muted) 85%, transparent);
     // box-shadow: $shadow-sm;
     z-index: 1000;
 }
@@ -135,6 +125,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-left: 24px;
     cursor: pointer;
     transition: opacity 0.2s ease;
 
@@ -150,17 +141,21 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
-    color: #fff;
+    background: linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        color-mix(in srgb, var(--color-primary) 60%, transparent) 100%
+    );
+    color: var(--color-on-primary);
     font-weight: 700;
     font-size: 16px;
-    box-shadow: 0 2px 8px rgba(64, 158, 255, 0.3);
+    box-shadow: 0 2px 8px color-mix(in srgb, var(--color-primary) 35%, transparent);
 }
 
 .system-title {
     font-weight: 600;
     font-size: 18px;
-    color: $text-primary;
+    color: var(--color-text);
     letter-spacing: 0.5px;
 }
 
@@ -168,53 +163,6 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     gap: 16px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-
-    &:hover {
-        background: rgba(64, 158, 255, 0.08);
-    }
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, $primary-color 0%, $primary-hover 100%);
-    color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    box-shadow: 0 2px 8px rgba(64, 158, 255, 0.25);
-}
-
-.user-details {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.user-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: $text-primary;
-    line-height: 1.4;
-}
-
-.user-phone {
-    font-size: 12px;
-    color: $text-secondary;
-    line-height: 1.4;
 }
 
 .space-sidebar {
@@ -226,8 +174,8 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: #fff;
-    border-right: 1px solid $border-color;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-muted);
     // box-shadow: $shadow-md;
     overflow: hidden;
     z-index: 999;
@@ -240,17 +188,8 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 .menu {
     flex: 1;
     padding: 16px 12px;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 2px;
-    }
+    overflow: hidden;
+    @include scrollbary;
 }
 
 .menu-item {
@@ -260,7 +199,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     padding: 12px 16px;
     margin-bottom: 4px;
     border-radius: 10px;
-    color: $text-regular;
+    color: var(--color-primary);
     text-decoration: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -274,20 +213,18 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
         transform: translateY(-50%);
         width: 3px;
         height: 0;
-        background: $primary-color;
+        background: var(--color-primary);
         border-radius: 0 2px 2px 0;
         transition: height 0.25s ease;
     }
 
     &:hover {
-        background: rgba(64, 158, 255, 0.08);
-        color: $primary-color;
+        background: var(--color-light);
         transform: translateX(2px);
     }
 
     &.active {
-        background: $menu-active-bg;
-        color: $primary-active;
+        background: var(--color-light);
         font-weight: 600;
 
         &::before {
@@ -327,18 +264,18 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     justify-content: center;
     gap: 8px;
     padding: 10px 12px;
-    border: 1px solid $border-color;
-    background: #fff;
+    border: 1px solid var(--color-muted);
+    background: var(--color-surface);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: $text-regular;
+    color: var(--color-secondary);
     font-size: 13px;
 
     &:hover {
-        background: rgba(64, 158, 255, 0.08);
-        border-color: $primary-color;
-        color: $primary-color;
+        background: var(--color-light);
+        border-color: var(--color-light);
+        color: var(--color-primary);
         transform: translateY(-1px);
         box-shadow: $shadow-sm;
     }

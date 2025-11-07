@@ -1,0 +1,25 @@
+@mixin scrollbary {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 2px;
+    }
+}
+@mixin scrollbarx {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 2px;
+    }
+}
