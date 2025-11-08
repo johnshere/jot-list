@@ -173,15 +173,15 @@ onBeforeUnmount(() => {
 }
 
 .popover-inner {
-    padding: 12px;
+    padding: 18px;
 }
 
 .popover-arrow {
     position: absolute;
-    top: -6px;
+    top: -9px;
     right: 18px;
-    width: 12px;
-    height: 12px;
+    width: 18px;
+    height: 18px;
     background: var(--color-surface);
     border-left: 1px solid color-mix(in srgb, var(--color-muted) 80%, transparent);
     border-top: 1px solid color-mix(in srgb, var(--color-muted) 80%, transparent);

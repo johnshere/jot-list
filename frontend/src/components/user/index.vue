@@ -1,5 +1,5 @@
 <template>
-    <Popover v-model:visible="showPopover" trigger="manual" placement="bottom-end" :offset="10">
+    <Popover v-model:visible="showPopover" trigger="manual" placement="bottom-start" :offset="10">
         <template #trigger>
             <div class="user-info" @click="togglePopover">
                 <div class="user-avatar">{{ initials }}</div>
@@ -122,11 +122,12 @@ const handleLogout = async () => {
 
 .logout-btn {
     width: 100%;
-    padding: 4px 12px;
+    padding: 6px 24px;
     border: 0;
     border-radius: 8px;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     font-weight: 600;
+    letter-spacing: 4px;
     text-align: center;
     color: var(--color-primary);
     cursor: pointer;
