@@ -37,7 +37,7 @@ const goBack = () => router.back()
 
 .message {
     margin-top: 16px;
-    font-size: 18px;
+    font-size: var(--font-size-md);
     color: var(--color-secondary);
 }
 
@@ -55,7 +55,7 @@ const goBack = () => router.back()
     background: var(--color-surface);
     color: var(--color-secondary);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--font-size-md);
 }
 
 .btn.primary {

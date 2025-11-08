@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
+  id           String    @id
   userName     String
   phone        String    @unique
   password     String    // 存储MD5摘要
@@ -25,4 +25,28 @@ model User {
   lastLoginAt  DateTime?
   createTime   DateTime  @default(now())
   updateTime   DateTime  @updatedAt
+
+  jots         Jot[]
+}
+
+model Jot {
+  id         String   @id
+  userId     String
+  title      String
+  content    Json
+  tags       String?
+  important  Boolean  @default(false)
+  urgent     Boolean  @default(false)
+  startTime  String?
+  endTime    String?
+  startDate  String?
+  endDate    String?
+  completed  Boolean  @default(false)
+  deleted    Boolean  @default(false)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

@@ -6,7 +6,7 @@
                 <span class="system-title">{{ SystemTitle }}</span>
             </div>
             <div class="header-actions">
-                <User :user="userInfo" />
+                <User />
             </div>
         </header>
 
@@ -25,8 +25,7 @@
             </nav>
             <div class="sidebar-footer">
                 <button class="collapse-btn" @click="toggleCollapse" :title="collapsed ? '展开菜单' : '收起菜单'">
-                    <span class="collapse-icon">{{ collapsed ? '▶' : '◀' }}</span>
-                    <span class="collapse-text">{{ collapsed ? '展开' : '收起' }}</span>
+                    {{ collapsed ? '(:' : '^_^' }}
                 </button>
             </div>
         </aside>
@@ -51,16 +50,12 @@ export default { title: '空间' }
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SystemLogo, SystemTitle } from '@jot-list/shared'
-import { useUserStore } from '@/stores'
 import User from '@/components/user/index.vue'
-import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 const route = useRoute()
-const userStore = useUserStore()
 
-const collapsed = ref(false)
-const { userInfo } = storeToRefs(userStore)
+const collapsed = ref(true)
 
 function toggleCollapse() {
     collapsed.value = !collapsed.value
@@ -89,9 +84,8 @@ const menus = computed<MenuItem[]>(() => {
 <style lang="scss" scoped>
 @use '@/assets/style/mixins.scss' as *;
 
-$header-height: 64px;
 $sidebar-width: 240px;
-$sidebar-width-collapsed: 64px;
+$sidebar-width-collapsed: 0;
 $shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
 $shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -110,7 +104,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     top: 0;
     left: 0;
     right: 0;
-    height: $header-height;
+    height: var(--header-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -148,13 +142,13 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     );
     color: var(--color-on-primary);
     font-weight: 700;
-    font-size: 16px;
+    font-size: var(--font-size-sm);
     box-shadow: 0 2px 8px color-mix(in srgb, var(--color-primary) 35%, transparent);
 }
 
 .system-title {
     font-weight: 600;
-    font-size: 18px;
+    font-size: var(--font-size-md);
     color: var(--color-text);
     letter-spacing: 0.5px;
 }
@@ -167,7 +161,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
 .space-sidebar {
     position: fixed;
-    top: $header-height;
+    top: var(--header-height);
     left: 0;
     bottom: 0;
     width: $sidebar-width;
@@ -242,7 +236,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
 .menu-text {
     white-space: nowrap;
-    font-size: 16px;
+    font-size: var(--font-size);
     transition: opacity 0.2s ease;
 }
 
@@ -253,8 +247,17 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .sidebar-footer {
-    padding: 12px;
+    position: fixed;
+    left: 16px;
+    bottom: 24px;
+    width: calc($sidebar-width - 32px);
+    padding: 0;
+    z-index: 1001;
     // border-top: 1px solid $border-color;
+}
+
+.space-container.is-collapsed .sidebar-footer {
+    width: auto;
 }
 
 .collapse-btn {
@@ -270,7 +273,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     cursor: pointer;
     transition: all 0.2s ease;
     color: var(--color-secondary);
-    font-size: 13px;
+    font-size: var(--font-size-sm);
 
     &:hover {
         background: var(--color-light);
@@ -285,27 +288,19 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     }
 }
 
-.collapse-icon {
-    font-size: 12px;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-}
-
-.collapse-text {
-    white-space: nowrap;
-    transition: opacity 0.2s ease;
-}
-
-.space-container.is-collapsed .collapse-text {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
+.space-container.is-collapsed {
+    .collapse-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: var(--shadow-md);
+    }
 }
 
 .space-content {
-    padding: $header-height 0 0 $sidebar-width;
+    padding: var(--header-height) 0 0 $sidebar-width;
     transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: calc(100vh - #{$header-height});
+    min-height: calc(100vh - var(--header-height));
 }
 
 .space-container.is-collapsed .space-content {

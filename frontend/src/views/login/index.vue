@@ -87,23 +87,13 @@ async function onSubmit() {
     border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     background: var(--color-surface);
-
-    @media screen and (max-width: 1024px) {
-        width: 340px;
-    }
-
-    @media screen and (max-width: 750px) {
-        width: 360px;
-    }
-
-    @media screen and (max-width: 600px) {
-        width: 380px;
-    }
+    width: 450px;
 }
 
 .login-form label {
     display: block;
     margin-bottom: 6px;
+    font-size: var(--font-size);
 }
 
 .login-form input {
@@ -112,6 +102,7 @@ async function onSubmit() {
     margin-bottom: 8px;
     border: 1px solid color-mix(in srgb, var(--color-muted) 90%, transparent);
     border-radius: 4px;
+    font-size: var(--font-size);
 }
 
 .login-form button {
@@ -121,9 +112,9 @@ async function onSubmit() {
     color: var(--color-on-primary);
     border: none;
     border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
     margin-top: 18px;
+    font-size: var(--font-size);
 }
 
 .login-form button:disabled {

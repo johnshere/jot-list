@@ -1,23 +1,24 @@
 {
-  "name": "jot-list-monorepo",
-  "version": "1.0.0",
-  "private": true,
-  "packageManager": "pnpm@10.15.0",
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "scripts": {
-    "prepare": "husky install",
-    "dev:front": "pnpm -C frontend dev",
-    "dev:back": "pnpm -C backend dev",
-    "build:front": "pnpm -C frontend build",
-    "type-check:front": "pnpm -C frontend type-check",
-    "lint:front": "pnpm -C frontend lint",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "concurrently": "^9.2.1",
-    "husky": "^8.0.0",
-    "prettier": "^3.6.2"
-  }
+    "name": "jot-list-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "packageManager": "pnpm@10.15.0",
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "dev:front": "pnpm -C frontend dev",
+        "dev:back": "pnpm -C backend dev",
+        "build:front": "pnpm -C frontend build",
+        "prisma": "pnpm -C backend prisma",
+        "type-check:front": "pnpm -C frontend type-check",
+        "lint:front": "pnpm -C frontend lint",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1",
+        "husky": "^8.0.0",
+        "prettier": "^3.6.2"
+    }
 }

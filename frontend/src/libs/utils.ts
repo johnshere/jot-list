@@ -231,3 +231,39 @@ export const isUnCaseEqual = (str1: string, str2: string) => {
     if (str1 === undefined || str2 === undefined) return false
     return str1.toLowerCase() === str2.toLowerCase()
 }
+
+/**
+ * 判断当前环境是否为移动端
+ * @param ua 可选的 user-agent 字符串，默认使用浏览器 navigator.userAgent
+ */
+const MOBILE_UA_REGEX =
+    /(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Windows Phone|SymbianOS)/i
+
+/**
+ * 判断当前环境是否为移动端
+ */
+export function isMobile(): boolean {
+    const ua = typeof navigator !== 'undefined' ? navigator.userAgent : ''
+    const maxWidth = 1024
+    const override = typeof localStorage !== 'undefined' ? localStorage.getItem('deviceMode') : null
+    if (override === 'mobile') return true
+    if (override === 'pc') return false
+
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return true
+
+    if (
+        typeof window !== 'undefined' &&
+        (typeof navigator !== 'undefined' ? (navigator.maxTouchPoints ?? 0) : 0) > 0 &&
+        window.matchMedia(`(max-width: ${maxWidth}px)`).matches
+    ) {
+        return true
+    }
+
+    if (ua && MOBILE_UA_REGEX.test(ua)) return true
+
+    if (typeof window !== 'undefined' && window.matchMedia(`(max-width: ${maxWidth}px)`).matches) {
+        return true
+    }
+
+    return false
+}

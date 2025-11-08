@@ -7,6 +7,7 @@ import { randomDigits, randomString } from '../../utils/random'
 import { saveSession } from '../../auth/session'
 import { replyError, replySuccess } from '../../utils/reply'
 import { PASSWORD_REGEX } from '@jot-list/shared'
+import { generateSnowflakeId } from '../../utils/snowflake'
 
 const prisma = new PrismaClient()
 
@@ -42,6 +43,7 @@ export const loginService = (instance: FastifyInstance) => {
                 const userName = randomString(6)
                 user = await prisma.user.create({
                     data: {
+                        id: generateSnowflakeId(),
                         userName,
                         phone,
                         password: secret.digest

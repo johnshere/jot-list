@@ -18,28 +18,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toValue } from 'vue'
-import type { MaybeRefOrGetter } from 'vue'
+import { computed, ref } from 'vue'
 import Popover from '@/components/popover/index.vue'
 import { logout as logoutRequest } from '@/api/ajax/common'
 import { useUserStore } from '@/stores'
 import { toLogin } from '@/libs'
 
-interface UserInfoShape {
-    userName?: string | null
-    phone?: string | null
-}
-
-const props = defineProps<{ user: MaybeRefOrGetter<UserInfoShape> }>()
-
 const userStore = useUserStore()
 const showPopover = ref(false)
 const logoutLoading = ref(false)
 
-const userData = computed<UserInfoShape>(() => toValue(props.user) ?? {})
+const userData = userStore.userInfo
 
-const displayName = computed(() => userData.value.userName?.trim() || '用户')
-const displayPhone = computed(() => userData.value.phone?.trim() || '')
+const displayName = computed(() => userData?.userName?.trim() || '用户')
+const displayPhone = computed(() => userData?.phone?.trim() || '')
 const initials = computed(() => displayName.value.charAt(0).toUpperCase() || 'U')
 
 const togglePopover = () => {
@@ -69,7 +61,7 @@ const handleLogout = async () => {
 
 <style scoped lang="scss">
 .user-info {
-    height: 64px;
+    height: var(--header-height);
     padding: 0 18px;
     position: relative;
     display: flex;
@@ -84,8 +76,8 @@ const handleLogout = async () => {
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -97,7 +89,7 @@ const handleLogout = async () => {
     );
     color: var(--color-on-primary);
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--font-size-md);
     box-shadow: 0 2px 8px color-mix(in srgb, var(--color-primary) 30%, transparent);
     text-transform: uppercase;
 }
@@ -109,14 +101,14 @@ const handleLogout = async () => {
 }
 
 .user-name {
-    font-size: 14px;
+    font-size: var(--font-size-md);
     font-weight: 600;
     color: var(--color-text);
     line-height: 1.4;
 }
 
 .user-phone {
-    font-size: 12px;
+    font-size: var(--font-size-sm);
     color: var(--color-secondary);
     line-height: 1.4;
 }
@@ -133,7 +125,7 @@ const handleLogout = async () => {
     padding: 4px 12px;
     border: 0;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     font-weight: 600;
     text-align: center;
     color: var(--color-primary);

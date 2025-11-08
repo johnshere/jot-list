@@ -1,112 +1,112 @@
 {
-  "name": "front",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "packageManager": "pnpm@10.15.0",
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "predev": "pnpm postinstall",
-    "postinstall": "echo Skipping postinstall",
-    "prebuild": "echo 'Dependencies should be installed separately'",
-    "dev": "vite",
-    "build": "pnpm type-check && pnpm build-only",
-    "build-only": "vite build",
-    "preview": "vite preview",
-    "clean": "pnpm store prune && rimraf node_modules pnpm-lock.yaml dist",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
-    "format": "prettier --write .",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "test:unit": "vitest",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
-    "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
-    "release": "release-it",
-    "deploy": "cloudbase framework:deploy"
-  },
-  "dependencies": {
-    "@babel/eslint-parser": "^7.28.0",
-    "@eslint/eslintrc": "^3.3.1",
-    "@jot-list/shared": "workspace:*",
-    "axios": "^1.11.0",
-    "lodash-es": "^4.17.21",
-    "moment": "^2.30.1",
-    "moment-timezone": "^0.5.45",
-    "nprogress": "^0.2.0",
-    "pinia": "^3.0.3",
-    "vite-plugin-qiankun": "^1.0.15",
-    "vue": "^3.5.18",
-    "vue-router": "^4.5.1"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.6",
-    "@eslint/js": "^9.33.0",
-    "@release-it/conventional-changelog": "^7.0.0",
-    "@rushstack/eslint-patch": "^1.2.0",
-    "@tsconfig/node20": "^20.1.6",
-    "@types/fs-extra": "^11.0.4",
-    "@types/jsdom": "^21.1.1",
-    "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.19.0",
-    "@types/nprogress": "^0.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.40.0",
-    "@typescript-eslint/parser": "^8.40.0",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vitejs/plugin-vue-jsx": "^5.0.1",
-    "@vue/eslint-config-prettier": "^10.2.0",
-    "@vue/eslint-config-typescript": "^14.6.0",
-    "@vue/shared": "^3.3.4",
-    "@vue/test-utils": "^2.4.1",
-    "@vue/tsconfig": "^0.8.1",
-    "async-validator": "4.2.5",
-    "eslint": "^9.33.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-vue": "^9.17.0",
-    "fs-extra": "^11.3.0",
-    "globals": "^16.3.0",
-    "husky": "^8.0.0",
-    "jiti": "^2.5.1",
-    "jsdom": "^22.1.0",
-    "lint-staged": "^13.2.3",
-    "only-allow": "^1.2.1",
-    "postcss-pxtorem": "^6.1.0",
-    "prettier": "^3.6.2",
-    "release-it": "^16.1.2",
-    "rimraf": "^5.0.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "sass": "^1.90.0",
-    "start-server-and-test": "^2.0.1",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0",
-    "unplugin-auto-import": "^20.1.0",
-    "unplugin-vue-components": "^29.0.0",
-    "vite": "^7.1.3",
-    "vite-plugin-compression": "^0.5.1",
-    "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-meta-env": "^1.0.2",
-    "vite-plugin-vue-devtools": "^8.0.0",
-    "vitest": "^3.2.4",
-    "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^3.0.5"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue}": [
-      "pnpm lint"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
+    "name": "jot",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "packageManager": "pnpm@10.15.0",
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "predev": "pnpm postinstall",
+        "postinstall": "echo Skipping postinstall",
+        "prebuild": "echo 'Dependencies should be installed separately'",
+        "dev": "vite",
+        "build": "pnpm type-check && pnpm build-only",
+        "build-only": "vite build",
+        "preview": "vite preview",
+        "clean": "pnpm store prune && rimraf node_modules pnpm-lock.yaml dist",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+        "format": "prettier --write .",
+        "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+        "test:unit": "vitest",
+        "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'",
+        "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e'",
+        "release": "release-it",
+        "deploy": "cloudbase framework:deploy"
+    },
+    "dependencies": {
+        "@babel/eslint-parser": "^7.28.0",
+        "@eslint/eslintrc": "^3.3.1",
+        "@jot-list/shared": "workspace:*",
+        "axios": "^1.11.0",
+        "lodash-es": "^4.17.21",
+        "moment": "^2.30.1",
+        "moment-timezone": "^0.5.45",
+        "nprogress": "^0.2.0",
+        "pinia": "^3.0.3",
+        "vite-plugin-qiankun": "^1.0.15",
+        "vue": "^3.5.18",
+        "vue-router": "^4.5.1"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.6.6",
+        "@commitlint/config-conventional": "^17.6.6",
+        "@eslint/js": "^9.33.0",
+        "@release-it/conventional-changelog": "^7.0.0",
+        "@rushstack/eslint-patch": "^1.2.0",
+        "@tsconfig/node20": "^20.1.6",
+        "@types/fs-extra": "^11.0.4",
+        "@types/jsdom": "^21.1.1",
+        "@types/lodash-es": "^4.17.12",
+        "@types/node": "^20.19.0",
+        "@types/nprogress": "^0.2.3",
+        "@typescript-eslint/eslint-plugin": "^8.40.0",
+        "@typescript-eslint/parser": "^8.40.0",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vitejs/plugin-vue-jsx": "^5.0.1",
+        "@vue/eslint-config-prettier": "^10.2.0",
+        "@vue/eslint-config-typescript": "^14.6.0",
+        "@vue/shared": "^3.3.4",
+        "@vue/test-utils": "^2.4.1",
+        "@vue/tsconfig": "^0.8.1",
+        "async-validator": "4.2.5",
+        "eslint": "^9.33.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.4",
+        "eslint-plugin-vue": "^9.17.0",
+        "fs-extra": "^11.3.0",
+        "globals": "^16.3.0",
+        "husky": "^8.0.0",
+        "jiti": "^2.5.1",
+        "jsdom": "^22.1.0",
+        "lint-staged": "^13.2.3",
+        "only-allow": "^1.2.1",
+        "postcss-pxtorem": "^6.1.0",
+        "prettier": "^3.6.2",
+        "release-it": "^16.1.2",
+        "rimraf": "^5.0.0",
+        "rollup-plugin-copy": "^3.5.0",
+        "rollup-plugin-visualizer": "^5.12.0",
+        "sass": "^1.90.0",
+        "start-server-and-test": "^2.0.1",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.40.0",
+        "unplugin-auto-import": "^20.1.0",
+        "unplugin-vue-components": "^29.0.0",
+        "vite": "^7.1.3",
+        "vite-plugin-compression": "^0.5.1",
+        "vite-plugin-eslint": "^1.8.1",
+        "vite-plugin-meta-env": "^1.0.2",
+        "vite-plugin-vue-devtools": "^8.0.0",
+        "vitest": "^3.2.4",
+        "vue-eslint-parser": "^10.2.0",
+        "vue-tsc": "^3.0.5"
+    },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ]
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,vue}": [
+            "pnpm lint"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
     }
-  }
 }
