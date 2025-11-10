@@ -1,5 +1,5 @@
 <template>
-    <div class="editor-container"></div>
+    <div class="editor-container">11</div>
 </template>
 <script lang="ts">
 export default { title: '编辑', sort: 30 }
