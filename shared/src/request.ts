@@ -1,1 +1,1 @@
-export const ApiPrefix = '/api'
+export const ApiPrefix = '/jot-api'

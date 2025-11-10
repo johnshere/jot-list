@@ -1,57 +1,15 @@
 <template>
     <div class="dashboard-container">
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
-        <h1>主页</h1>
+        <TitleWithTag v-model="title" />
     </div>
 </template>
 <script lang="ts">
 export default { title: '仪表盘', sort: 10 }
 </script>
 <script setup lang="ts">
-console.log('dashboard')
+import TitleWithTag, { type TitleTagModel } from '@/components/title-with-tag/index.vue'
+
+const title = ref({} as TitleTagModel)
 </script>
 
 <style lang="scss" scoped></style>

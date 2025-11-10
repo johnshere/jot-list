@@ -185,7 +185,7 @@ export default () => {
             port: 9090,
             host: true,
             proxy: {
-                '/api': {
+                '/jot-api': {
                     target: 'http://localhost:3000',
                     changeOrigin: true
                 }

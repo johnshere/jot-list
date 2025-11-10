@@ -16,6 +16,7 @@ declare module 'vue' {
     Popover: typeof import('./src/components/popover/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TitleWithTag: typeof import('./src/components/title-with-tag/index.vue')['default']
     User: typeof import('./src/components/user/index.vue')['default']
     UserPopover: typeof import('./src/components/user-popover.vue')['default']
   }
@@ -27,6 +28,7 @@ declare global {
   const Popover: typeof import('./src/components/popover/index.vue')['default']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
+  const TitleWithTag: typeof import('./src/components/title-with-tag/index.vue')['default']
   const User: typeof import('./src/components/user/index.vue')['default']
   const UserPopover: typeof import('./src/components/user-popover.vue')['default']
 }

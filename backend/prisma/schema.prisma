@@ -30,21 +30,21 @@ model User {
 }
 
 model Jot {
-  id         String   @id
-  userId     String
-  title      String
-  content    Json
-  tags       String?
-  important  Boolean  @default(false)
-  urgent     Boolean  @default(false)
-  startTime  String?
-  endTime    String?
-  startDate  String?
-  endDate    String?
-  completed  Boolean  @default(false)
-  deleted    Boolean  @default(false)
-  createTime DateTime @default(now())
-  updateTime DateTime @updatedAt
+  id           String   @id
+  userId       String
+  title        String
+  content      Json
+  tags         String?
+  isImportant  Boolean  @default(false)
+  isUrgent     Boolean  @default(false)
+  startTime    String?
+  endTime      String?
+  startDate    String?
+  endDate      String?
+  isCompleted  Boolean  @default(false)
+  isDeleted    Boolean  @default(false)
+  createTime   DateTime @default(now())
+  updateTime   DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
