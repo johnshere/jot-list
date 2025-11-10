@@ -2,6 +2,7 @@ import Fastify, { type FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
 import { authInterceptor } from './plugins/interceptors'
 import { userService } from './service/user'
+import { jotService } from './service/jot'
 import { ApiPrefix } from '@jot-list/shared'
 
 export async function buildApp(): Promise<FastifyInstance> {
@@ -14,6 +15,7 @@ export async function buildApp(): Promise<FastifyInstance> {
         async instance => {
             await instance.register(authInterceptor)
             await instance.register(userService)
+            await instance.register(jotService)
         },
         { prefix: ApiPrefix }
     )

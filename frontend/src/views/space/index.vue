@@ -10,7 +10,7 @@
             </div>
         </header>
 
-        <aside class="space-sidebar">
+        <aside class="space-sidebar" v-click-outside="() => toggleCollapse(true)">
             <nav class="menu">
                 <router-link
                     v-for="m in menus"
@@ -18,28 +18,27 @@
                     :to="`/space/${m.path}`"
                     class="menu-item"
                     :class="{ active: isActive(m.path) }"
+                    @click="toggleCollapse(true)"
                 >
                     <span class="menu-icon"></span>
                     <span class="menu-text">{{ m.label }}</span>
                 </router-link>
             </nav>
             <div class="sidebar-footer">
-                <button class="collapse-btn" @click="toggleCollapse" :title="collapsed ? '展开菜单' : '收起菜单'">
+                <button class="collapse-btn" @click="toggleCollapse()" :title="collapsed ? '展开菜单' : '收起菜单'">
                     {{ collapsed ? '(:' : '^_^' }}
                 </button>
             </div>
         </aside>
 
         <main class="space-content">
-            <div class="content-wrapper">
-                <router-view v-slot="{ Component }">
-                    <transition name="fade-slide" mode="out-in">
-                        <keep-alive>
-                            <component :is="Component" />
-                        </keep-alive>
-                    </transition>
-                </router-view>
-            </div>
+            <router-view v-slot="{ Component }">
+                <transition name="fade-slide" mode="out-in">
+                    <keep-alive>
+                        <component :is="Component" class="content-wrapper" />
+                    </keep-alive>
+                </transition>
+            </router-view>
         </main>
     </div>
 </template>
@@ -57,8 +56,8 @@ const route = useRoute()
 
 const collapsed = ref(true)
 
-function toggleCollapse() {
-    collapsed.value = !collapsed.value
+function toggleCollapse(toggle?: boolean) {
+    collapsed.value = typeof toggle === 'boolean' ? toggle : !collapsed.value
 }
 function isActive(path: string) {
     return route.path.startsWith(`/space/${path}`)
@@ -91,7 +90,8 @@ $shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
 .space-container {
-    min-height: 100vh;
+    height: calc(100dvh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px));
+    padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
     background: linear-gradient(
         135deg,
         var(--color-bg) 0%,
@@ -104,7 +104,8 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
     top: 0;
     left: 0;
     right: 0;
-    height: var(--header-height);
+    height: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -161,7 +162,7 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
 .space-sidebar {
     position: fixed;
-    top: var(--header-height);
+    top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
     left: 0;
     bottom: 0;
     width: $sidebar-width;
@@ -298,9 +299,9 @@ $shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .space-content {
-    padding: var(--header-height) 0 0 $sidebar-width;
+    padding: calc(var(--header-height) + env(safe-area-inset-top, 0px)) 0 0 $sidebar-width;
     transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: calc(100vh - var(--header-height));
+    height: 100%;
 }
 
 .space-container.is-collapsed .space-content {
